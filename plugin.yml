@@ -1,0 +1,14 @@
+name: RacingItems
+version: 1.0
+author: Datatags
+main: me.datatags.racingitems.RacingItems
+api-version: 1.17
+depend: [racing]
+commands:
+    giveracingitem:
+        description: Gives you a RacingItem
+        usage: /<command> <item>
+        permission: racingitems.give
+permissions:
+    racingitems.give:
+        description: Allows you to give yourself a RacingItem
