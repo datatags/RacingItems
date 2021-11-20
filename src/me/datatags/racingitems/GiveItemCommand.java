@@ -27,6 +27,10 @@ public class GiveItemCommand implements TabExecutor {
 		}
 		if (args.length != 1) return false;
 		RacingItem item = im.getByName(args[0]);
+		if (item == null) {
+			sender.sendMessage(ChatColor.RED + "Invalid item: " + args[0]);
+			return true;
+		}
 		Map<Integer,ItemStack> items = ((Player)sender).getInventory().addItem(item.getItem());
 		if (items.size() > 0) {
 			sender.sendMessage(ChatColor.RED + "Your inventory is full.");

@@ -4,10 +4,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.potion.PotionEffect;
 
-public abstract class LingeringMushroomItem extends PotionItem {
+public abstract class LingeringMushroomItem extends ThrowableItem {
+	private PotionEffect effect;
 	public LingeringMushroomItem(String name, int model, String displayName, float minPos, float maxPos, int weight,
 			PotionEffect effect) {
-		super(name, model, displayName, minPos, maxPos, weight, effect);
+		super(name, model, displayName, minPos, maxPos, weight);
+		this.effect = effect;
 	}
 
 	@Override

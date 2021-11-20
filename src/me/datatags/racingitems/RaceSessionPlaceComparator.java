@@ -17,12 +17,16 @@ public class RaceSessionPlaceComparator implements Comparator<RacePlayerSession>
 		int lapComparison = Integer.compare(s2.getCurrentLap(), s1.getCurrentLap());
 		if (lapComparison != 0) return lapComparison;
 		// HIGHER is better
-		int checkpointComparison = s2.getCurrentCheckpoint().compareTo(s1.getCurrentCheckpoint());
+		// Don't use "currentCheckpoint", it does something different.
+		RaceCheckpoint cp1 = s1.getNextCheckpoint();
+		RaceCheckpoint cp2 = s2.getNextCheckpoint();
+		int checkpointComparison = cp2.compareTo(cp1);
 		if (checkpointComparison != 0) return checkpointComparison;
-		RaceCheckpoint checkpoint = s1.getNextCheckpoint();
 		// LOWER is better
-		double distanceP1 = s1.getPlayer().getLocation().distanceSquared(checkpoint.getLocation());
-		double distanceP2 = s2.getPlayer().getLocation().distanceSquared(checkpoint.getLocation());
+		// they're the same checkpoint at this point but just for non-confusion
+		// I used cp1 and cp2
+		double distanceP1 = s1.getPlayer().getLocation().distanceSquared(cp1.getLocation());
+		double distanceP2 = s2.getPlayer().getLocation().distanceSquared(cp2.getLocation());
 		return Double.compare(distanceP1, distanceP2);
 	}
 

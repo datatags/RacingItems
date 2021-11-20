@@ -4,22 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+
 import me.datatags.racingitems.RacingItems;
 
 public abstract class RacingItem {
-	/*BANANA(1, "Banana", 0, 1, 1),
-	BLOOPER(2, "Blooper", 0, 1, 1),
-	BLUE_SHELL(3, "Blue Shell", 0, 1, 1),
-	BULLET_BILL(4, "Bullet Bill", 1, 1, 3),
-	LIGHTNING(5, "Lightning", 1, 1, 1),
-	SPEED_POTION(-1, "Turbo", 0, 1, 3, new PotionEffect(PotionEffectType.SPEED, 60, 2)),
-	SLOWNESS_SPLASH(-1, "Volt Shroom", 0, 1, 5, new PotionEffect(PotionEffectType.SLOW, 20, 2)),
-	SLOWNESS_LINGERING(-1, "Electro-shroom", 0, 1, 5, new PotionEffect(PotionEffectType.SLOW, 20, 2)),
-	HARM_LINGERING(-1, "POW Block", 0, 1, 5, new PotionEffect(PotionEffectType.HARM, 20, 1)),
-	POISON_SPLASH(-1, "Bomb", 0, 1, 5, new PotionEffect(PotionEffectType.POISON, 60, 2)),*/
 	public static final NamespacedKey ITEM_KEY = new NamespacedKey(RacingItems.getInstance(), "item");
 	private String name;
 	private String displayName;
@@ -58,5 +51,9 @@ public abstract class RacingItem {
 	public ItemStack getItem() {
 		return item.clone();
 	}
-	public abstract void applyTo(LivingEntity e);
+	public void onUse(PlayerInteractEvent e) {
+		LivingEntity target = e.getPlayer().getVehicle() instanceof LivingEntity ? (LivingEntity) e.getPlayer().getVehicle() : e.getPlayer();
+		applyTo(target, e.getPlayer());
+	}
+	public abstract void applyTo(LivingEntity vehicle, Player player);
 }

@@ -1,6 +1,7 @@
 package me.datatags.racingitems.items;
 
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 public abstract class PotionEffectItem extends RacingItem {
@@ -11,7 +12,7 @@ public abstract class PotionEffectItem extends RacingItem {
 	}
 
 	@Override
-	public void applyTo(LivingEntity e) {
+	public void applyTo(LivingEntity e, Player player) {
 		effect.apply(e);
 	}
 }

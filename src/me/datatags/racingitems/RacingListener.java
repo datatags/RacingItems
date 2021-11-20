@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,20 +37,25 @@ public class RacingListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onBulletBill(PlayerInteractEvent e) {
+	public void onUseItem(PlayerInteractEvent e) {
+		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.SWEET_BERRY_BUSH) {
+			e.setCancelled(true);
+		}
 		ItemStack item = e.getItem();
 		if (item == null) return;
 		if (item.getType() != Material.RAW_COPPER) return;
 		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (!item.getItemMeta().getPersistentDataContainer().has(RacingItem.ITEM_KEY, PersistentDataType.STRING)) return;
 		e.setCancelled(true);
-		// clone so it doesn't modify the event's actual copy of the item
-		item = item.clone();
-		item.setAmount(item.getAmount() - 1);
-		if (e.getHand() == EquipmentSlot.HAND) {
-			e.getPlayer().getInventory().setItemInMainHand(item);
-		} else {
-			e.getPlayer().getInventory().setItemInOffHand(item);
+		if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+			// clone so it doesn't modify the event's actual copy of the item
+			item = item.clone();
+			item.setAmount(item.getAmount() - 1);
+			if (e.getHand() == EquipmentSlot.HAND) {
+				e.getPlayer().getInventory().setItemInMainHand(item);
+			} else {
+				e.getPlayer().getInventory().setItemInOffHand(item);
+			}
 		}
 		im.handleUse(e);
 	}

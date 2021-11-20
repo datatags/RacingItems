@@ -3,20 +3,18 @@ package me.datatags.racingitems.items;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.potion.PotionEffect;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.datatags.racingitems.RacingItems;
 
-public abstract class PotionItem extends RacingItem {
-	protected PotionEffect effect;
-	public PotionItem(String name, int model, String displayName, float minPos, float maxPos, int weight, PotionEffect effect) {
+public abstract class ThrowableItem extends RacingItem {
+	public ThrowableItem(String name, int model, String displayName, float minPos, float maxPos, int weight) {
 		super(name, model, displayName, minPos, maxPos, weight);
-		this.effect = effect;
 	}
 
 	@Override
-	public void applyTo(LivingEntity e) {
+	public void applyTo(LivingEntity e, Player player) {
 		ArmorStand as = e.getWorld().spawn(e.getLocation().add(0, 1, 0), ArmorStand.class, s -> {
 			s.setSmall(true);
 			s.setInvisible(true);
@@ -28,7 +26,9 @@ public abstract class PotionItem extends RacingItem {
 			public void run() {
 				if (as.isValid() && !as.isOnGround()) return;
 				if (as.isOnGround()) {
-					onLand(as.getLocation());
+					Location loc = as.getLocation();
+					loc.setY(Math.ceil(loc.getY()));
+					onLand(loc);
 					as.remove();
 				}
 				this.cancel();

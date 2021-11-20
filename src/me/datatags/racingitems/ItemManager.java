@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import me.datatags.racingitems.items.BananaBunchItem;
+import me.datatags.racingitems.items.BigBananaBunchItem;
+import me.datatags.racingitems.items.BlooperItem;
+import me.datatags.racingitems.items.BlueShellItem;
 import me.datatags.racingitems.items.BulletBillItem;
 import me.datatags.racingitems.items.DamageLingeringMushroomItem;
+import me.datatags.racingitems.items.LightningItem;
 import me.datatags.racingitems.items.PoisonSplashMushroomItem;
 import me.datatags.racingitems.items.RacingItem;
 import me.datatags.racingitems.items.SlownessLingeringMushroomItem;
@@ -27,6 +31,11 @@ public class ItemManager {
 		registerItem(new SlownessSplashMushroomItem());
 		registerItem(new BulletBillItem());
 		registerItem(new SpeedShakeItem());
+		registerItem(new BlooperItem());
+		registerItem(new BananaBunchItem());
+		registerItem(new BigBananaBunchItem());
+		registerItem(new BlueShellItem());
+		registerItem(new LightningItem());
 	}
 	public void registerItem(RacingItem item) {
 		items.put(item.getInternalName(), item);
@@ -49,13 +58,12 @@ public class ItemManager {
 		return selections.get(random.nextInt(selections.size()));
 	}
 	public void handleUse(PlayerInteractEvent e) {
-		LivingEntity target = e.getPlayer().getVehicle() instanceof LivingEntity ? (LivingEntity) e.getPlayer().getVehicle() : e.getPlayer();
 		for (RacingItem item : items.values()) {
 			if (e.getItem().isSimilar(item.getItem())) {
-				item.applyTo(target);
+				item.onUse(e);
 				return;
 			}
 		}
-		Bukkit.getLogger().info("Warning: failed to find matching item :?");
+		RacingItems.getInstance().getLogger().warning("Failed to find matching item :?");
 	}
 }

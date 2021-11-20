@@ -9,6 +9,10 @@ commands:
         description: Gives you a RacingItem
         usage: /<command> <item>
         permission: racingitems.give
+    positiondiagnostic:
+        description: Starts diagnostics on your position in a race
+        usage: /<command> [update interval]
+        permission: racingitems.diagnostics
 permissions:
     racingitems.give:
         description: Allows you to give yourself a RacingItem

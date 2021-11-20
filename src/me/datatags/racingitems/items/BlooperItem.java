@@ -1,16 +1,24 @@
 package me.datatags.racingitems.items;
 
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class BlooperItem extends RacingItem {
+import com.github.hornta.racing.objects.RacePlayerSession;
+
+import me.datatags.racingitems.RacingUtils;
+
+public class BlooperItem extends PotionEffectItem {
 
 	public BlooperItem() {
-		super("blooper", 1, "Blooper", 0.3f, 0.5f, 4);
+		super("blooper", 1, "Blooper", 0.6f, 1f, 4, new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
 	}
 
 	@Override
-	public void applyTo(LivingEntity e) {
-		
+	public void onUse(PlayerInteractEvent e) {
+		for (RacePlayerSession playerSession : RacingUtils.getSessions(e.getPlayer())) {
+			if (playerSession.getPlayer() == e.getPlayer()) break;
+			applyTo(playerSession.getPlayer(), null);
+		}
 	}
-	
 }
