@@ -3,6 +3,7 @@ package me.datatags.racingitems.items;
 import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ import com.github.hornta.racing.objects.RacePlayerSession;
 
 import me.datatags.racingitems.RacingItems;
 import me.datatags.racingitems.RacingUtils;
+import me.datatags.racingitems.SoundPair;
 
 public class LightningItem extends RacingItem {
 
@@ -33,23 +35,35 @@ public class LightningItem extends RacingItem {
             LivingEntity target = targetPlayer;
             if (targetPlayer.getVehicle() instanceof Ageable a) {
                 target = a;
-                new BabyHorseTimer(a).runTaskLater(RacingItems.getInstance(), effectTicks);
+                new BabyHorseTimer(targetPlayer).runTaskLater(RacingItems.getInstance(), effectTicks);
             }
             targetPlayer.getWorld().spigot().strikeLightning(targetPlayer.getLocation(), false);
             target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, effectTicks, 3));
             effectTicks += 20;
         }
     }
+    
+    @Override
+    public SoundPair getPickupSound() {
+        return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_CHIME);
+    }
+    
+    @Override
+    public SoundPair getUseSound() {
+        return new SoundPair(Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 2);
+    }
+    
     private class BabyHorseTimer extends BukkitRunnable {
-        private Ageable target;
-        public BabyHorseTimer(Ageable target) {
-            this.target = target;
-            target.setBaby();
+        private Player player;
+        public BabyHorseTimer(Player player) {
+            this.player = player;
+            ((Ageable)player.getVehicle()).setBaby();
         }
         @Override
         public void run() {
-            target.setAdult();
-            target.setFireTicks(0);
+            Ageable vehicle = (Ageable) player.getVehicle();
+            vehicle.setAdult();
+            vehicle.setFireTicks(0);
         }
     }
 }

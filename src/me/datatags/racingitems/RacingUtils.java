@@ -1,5 +1,6 @@
 package me.datatags.racingitems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ public class RacingUtils {
     private RacingUtils() {}
     public static List<RacePlayerSession> getSessions(Player participant) {
         RaceSession session = getPlayerRace(participant);
-        if (session == null) return null;
+        if (session == null) return new ArrayList<>();
         List<RacePlayerSession> sessions = session.getPlayerSessions();
         sessions.sort(new RaceSessionPlaceComparator());
         return sessions;

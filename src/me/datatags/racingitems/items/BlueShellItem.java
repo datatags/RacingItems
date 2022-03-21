@@ -1,9 +1,11 @@
 package me.datatags.racingitems.items;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +17,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import com.github.hornta.racing.objects.RacePlayerSession;
+
 import me.datatags.racingitems.RacingItems;
 import me.datatags.racingitems.RacingUtils;
+import me.datatags.racingitems.SoundPair;
 
 public class BlueShellItem extends RacingItem implements Listener {
 	private Set<LivingEntity> blueShelled = new HashSet<>();
@@ -27,6 +32,9 @@ public class BlueShellItem extends RacingItem implements Listener {
 
 	@Override
 	public void applyTo(LivingEntity e, Player player) {
+	    List<RacePlayerSession> sessions = RacingUtils.getSessions(player);
+	    // when player is outside a race
+	    if (sessions.size() == 0) return;
 		Player first = RacingUtils.getSessions(player).get(0).getPlayer();
 		LivingEntity firstMount = first;
 		if (firstMount.getVehicle() instanceof LivingEntity mount) {
@@ -45,5 +53,15 @@ public class BlueShellItem extends RacingItem implements Listener {
 		if (!blueShelled.remove(e.getEntity())) return;
 		e.setDamage(0);
 		//((LivingEntity)e.getEntity()).removePotionEffect(PotionEffectType.SLOW);
+	}
+	
+	@Override
+	public SoundPair getPickupSound() {
+	    return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_CHIME);
+	}
+
+	@Override
+	public SoundPair getUseSound() {
+	    return new SoundPair(Sound.ENTITY_SPIDER_AMBIENT, 2);
 	}
 }

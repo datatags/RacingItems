@@ -19,7 +19,7 @@ public abstract class ThrowableItem extends RacingItem {
 			s.setSmall(true);
 			s.setInvisible(true);
 			s.getEquipment().setHelmet(item);
-			s.setVelocity(e.getLocation().getDirection().multiply(2.5));
+			s.setVelocity(e.getLocation().getDirection().multiply(3));
 		});
 		new BukkitRunnable() {
 			@Override
@@ -35,5 +35,6 @@ public abstract class ThrowableItem extends RacingItem {
 			}
 		}.runTaskTimer(RacingItems.getInstance(), 1, 1);
 	}
+	
 	public abstract void onLand(Location loc);
 }

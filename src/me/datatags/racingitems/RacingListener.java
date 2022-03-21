@@ -32,6 +32,7 @@ public class RacingListener implements Listener {
 		RacingItem item = im.getRandomItem(place);
 		Map<Integer,ItemStack> returnedItems = player.getInventory().addItem(item.getItem());
 		if (returnedItems.size() == 0) {
+		    item.getPickupSound().playTo(player);
 			player.sendMessage(ChatColor.GREEN + "You've received an item!");
 			player.sendMessage(ChatColor.GREEN + "Your place: " + place);
 		}

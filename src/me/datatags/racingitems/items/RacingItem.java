@@ -3,6 +3,7 @@ package me.datatags.racingitems.items;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -11,15 +12,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import me.datatags.racingitems.RacingItems;
+import me.datatags.racingitems.SoundPair;
 
 public abstract class RacingItem {
 	public static final NamespacedKey ITEM_KEY = new NamespacedKey(RacingItems.getInstance(), "item");
-	private String name;
-	private String displayName;
-	private float minPos;
-	private float maxPos;
-	private int weight;
-	protected ItemStack item;
+	private final String name;
+	private final String displayName;
+	private final float minPos;
+	private final float maxPos;
+	private final int weight;
+	protected final ItemStack item;
 	public RacingItem(String name, int model, String displayName, float minPos, float maxPos, int weight) {
 		this.name = name;
 		this.displayName = displayName;
@@ -51,7 +53,14 @@ public abstract class RacingItem {
 	public ItemStack getItem() {
 		return item.clone();
 	}
+	public SoundPair getPickupSound() {
+	    return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_PLACE);
+	}
+	public SoundPair getUseSound() {
+	    return new SoundPair(Sound.ENTITY_EXPERIENCE_BOTTLE_THROW);
+	}
 	public void onUse(PlayerInteractEvent e) {
+	    getUseSound().playTo(e.getPlayer());
 		LivingEntity target = e.getPlayer().getVehicle() instanceof LivingEntity ? (LivingEntity) e.getPlayer().getVehicle() : e.getPlayer();
 		applyTo(target, e.getPlayer());
 	}

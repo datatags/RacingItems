@@ -12,6 +12,7 @@ import me.datatags.racingitems.items.BananaBunchItem;
 import me.datatags.racingitems.items.BigBananaBunchItem;
 import me.datatags.racingitems.items.BlooperItem;
 import me.datatags.racingitems.items.BlueShellItem;
+import me.datatags.racingitems.items.BooItem;
 import me.datatags.racingitems.items.BulletBillItem;
 import me.datatags.racingitems.items.DamageLingeringMushroomItem;
 import me.datatags.racingitems.items.LightningItem;
@@ -36,6 +37,7 @@ public class ItemManager {
 		registerItem(new BigBananaBunchItem());
 		registerItem(new BlueShellItem());
 		registerItem(new LightningItem());
+		registerItem(new BooItem());
 	}
 	public void registerItem(RacingItem item) {
 		items.put(item.getInternalName(), item);
