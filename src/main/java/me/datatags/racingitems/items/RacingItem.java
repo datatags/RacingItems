@@ -35,34 +35,44 @@ public abstract class RacingItem {
 		meta.getPersistentDataContainer().set(ITEM_KEY, PersistentDataType.STRING, name);
 		item.setItemMeta(meta);
 	}
+
 	public String getInternalName() {
 		return name;
 	}
+
 	public String getDisplayName() {
 		return displayName;
 	}
+
 	public float getMinPos() {
 		return minPos;
 	}
+
 	public float getMaxPos() {
 		return maxPos;
 	}
+
 	public int getWeight() {
 		return weight;
 	}
+
 	public ItemStack getItem() {
 		return item.clone();
 	}
+
 	public SoundPair getPickupSound() {
-	    return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_PLACE);
+	    return new SoundPair("mariokart:checkpoint");
 	}
+
 	public SoundPair getUseSound() {
-	    return new SoundPair(Sound.ENTITY_EXPERIENCE_BOTTLE_THROW);
+	    return new SoundPair("mariokart:throw");
 	}
+
 	public void onUse(PlayerInteractEvent e) {
 	    getUseSound().playTo(e.getPlayer());
 		LivingEntity target = e.getPlayer().getVehicle() instanceof LivingEntity ? (LivingEntity) e.getPlayer().getVehicle() : e.getPlayer();
 		applyTo(target, e.getPlayer());
 	}
+
 	public abstract void applyTo(LivingEntity vehicle, Player player);
 }

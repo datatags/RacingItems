@@ -42,17 +42,12 @@ public class LightningItem extends RacingItem {
             effectTicks += 20;
         }
     }
-    
-    @Override
-    public SoundPair getPickupSound() {
-        return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_CHIME);
-    }
-    
+
     @Override
     public SoundPair getUseSound() {
         return new SoundPair(Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 2);
     }
-    
+
     private class BabyHorseTimer extends BukkitRunnable {
         private Player player;
         public BabyHorseTimer(Player player) {

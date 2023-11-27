@@ -11,6 +11,7 @@ import com.github.hornta.racing.objects.RaceSession;
 
 public class RacingUtils {
     private RacingUtils() {}
+
     public static List<RacePlayerSession> getSessions(Player participant) {
         RaceSession session = getPlayerRace(participant);
         if (session == null) return new ArrayList<>();
@@ -18,6 +19,7 @@ public class RacingUtils {
         sessions.sort(new RaceSessionPlaceComparator());
         return sessions;
     }
+
     public static RaceSession getPlayerRace(Player participant) {
         return RacingPlugin.getInstance().getRacingManager().getParticipatingRace(participant);
     }

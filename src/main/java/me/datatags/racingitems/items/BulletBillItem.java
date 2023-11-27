@@ -13,15 +13,10 @@ public class BulletBillItem extends PotionEffectItem {
 	public BulletBillItem() {
 		super("bullet_bill", 3, "Bullet Bill", 1, 1, 4, new PotionEffect(PotionEffectType.SPEED, 60, 9));
 	}
-	
-	@Override
-	public SoundPair getPickupSound() {
-	    return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_CHIME);
-	}
-	
+
 	@Override
 	public SoundPair getUseSound() {
-	    return new SoundPair(Sound.ITEM_ELYTRA_FLYING, 2);
+	    return new SoundPair("bullet_bill");
 	}
 
 	@Override
@@ -30,7 +25,7 @@ public class BulletBillItem extends PotionEffectItem {
 	    new BukkitRunnable() {
 	        @Override
 	        public void run() {
-	            e.getPlayer().stopSound(getUseSound().getSound());
+	            getUseSound().stopFor(e.getPlayer());
 	            new SoundPair(Sound.ITEM_ARMOR_EQUIP_NETHERITE).playTo(e.getPlayer());
 	        }
 	    }.runTaskLater(RacingItems.getInstance(), 60);

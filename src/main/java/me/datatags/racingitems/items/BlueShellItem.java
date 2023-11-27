@@ -46,7 +46,7 @@ public class BlueShellItem extends RacingItem implements Listener {
 		firstMount.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 3));
 		first.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 0));
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOW)
 	public void onFall(EntityDamageEvent e) {
 		if (e.getCause() != DamageCause.FALL) return;
@@ -54,14 +54,9 @@ public class BlueShellItem extends RacingItem implements Listener {
 		e.setDamage(0);
 		//((LivingEntity)e.getEntity()).removePotionEffect(PotionEffectType.SLOW);
 	}
-	
-	@Override
-	public SoundPair getPickupSound() {
-	    return new SoundPair(Sound.BLOCK_AMETHYST_BLOCK_CHIME);
-	}
 
 	@Override
 	public SoundPair getUseSound() {
-	    return new SoundPair(Sound.ENTITY_SPIDER_AMBIENT, 2);
+	    return new SoundPair("blueshell", 2);
 	}
 }

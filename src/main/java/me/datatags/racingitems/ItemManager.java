@@ -39,15 +39,19 @@ public class ItemManager {
 		registerItem(new LightningItem());
 		registerItem(new BooItem());
 	}
+
 	public void registerItem(RacingItem item) {
 		items.put(item.getInternalName(), item);
 	}
+
 	public RacingItem getByName(String name) {
 		return items.get(name);
 	}
+
 	public Map<String,RacingItem> getAllItems() {
 		return items;
 	}
+
 	public RacingItem getRandomItem(float place) {
 		List<RacingItem> selections = new ArrayList<>();
 		for (RacingItem item : items.values()) {
@@ -59,6 +63,7 @@ public class ItemManager {
 		}
 		return selections.get(random.nextInt(selections.size()));
 	}
+
 	public void handleUse(PlayerInteractEvent e) {
 		for (RacingItem item : items.values()) {
 			if (e.getItem().isSimilar(item.getItem())) {

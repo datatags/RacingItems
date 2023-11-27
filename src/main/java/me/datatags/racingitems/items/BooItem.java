@@ -35,34 +35,27 @@ public class BooItem extends RacingItem {
         List<RacePlayerSession> sessions = RacingUtils.getSessions(player);
         Collections.reverse(sessions);
         for (RacePlayerSession rps : sessions) {
-            Bukkit.getLogger().info("Looping on " + rps.getPlayer().getName());
             if (rps.getPlayer() == player) {
-                Bukkit.getLogger().info("Found sender");
                 foundUser = true;
                 continue;
             }
-            Bukkit.getLogger().info("Not sender");
             if (!foundUser) continue;
-            Bukkit.getLogger().info("Finding items");
             Player target = rps.getPlayer();
             List<ItemStack> items = new ArrayList<>();
             ItemStack[] inv = target.getInventory().getContents();
             for (int i = 0; i < inv.length; i++) {
                 if (inv[i] != null) {
-                    Bukkit.getLogger().info("Found item");
                     items.add(inv[i]);
                 }
             }
             if (items.size() == 0) continue;
-            Bukkit.getLogger().info("Has some items");
             randomItem = items.get(ThreadLocalRandom.current().nextInt(items.size())).clone();
             randomItem.setAmount(1);
             target.getInventory().remove(randomItem);
-            new SoundPair(Sound.ENTITY_GHAST_WARN, 1.5f).playTo(target);
+            new SoundPair("mariokart:boo_steal").playTo(target);
             break;
         }
         if (randomItem == null) {
-            Bukkit.getLogger().info("Picking random item");
             randomItem = RacingItems.getInstance().getItemManager().getRandomItem(0).getItem();
         }
         player.getInventory().addItem(randomItem);
@@ -70,6 +63,6 @@ public class BooItem extends RacingItem {
 
     @Override
     public SoundPair getUseSound() {
-        return new SoundPair(Sound.ENTITY_GHAST_SCREAM, 0.5f);
+        return new SoundPair("mariokart:boo_use");
     }
 }
