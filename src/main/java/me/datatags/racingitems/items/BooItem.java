@@ -21,8 +21,8 @@ import me.datatags.racingitems.SoundPair;
 
 public class BooItem extends RacingItem {
 
-    public BooItem() {
-        super("boo", 11, "Boo", 0.25f, 0.65f, 3);
+    public BooItem(ItemStack item) {
+        super("boo", item, "Boo", 0.25f, 0.65f, 3);
     }
 
     @Override

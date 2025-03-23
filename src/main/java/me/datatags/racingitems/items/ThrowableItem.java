@@ -4,13 +4,14 @@ import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.datatags.racingitems.RacingItems;
 
 public abstract class ThrowableItem extends RacingItem {
-    public ThrowableItem(String name, int model, String displayName, float minPos, float maxPos, int weight) {
-        super(name, model, displayName, minPos, maxPos, weight);
+    public ThrowableItem(String name, ItemStack item, String displayName, float minPos, float maxPos, int weight) {
+        super(name, item, displayName, minPos, maxPos, weight);
     }
 
     @Override

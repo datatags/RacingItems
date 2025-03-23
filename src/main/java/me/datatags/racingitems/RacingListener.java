@@ -52,7 +52,6 @@ public class RacingListener implements Listener {
         }
         ItemStack item = e.getItem();
         if (item == null) return;
-        if (item.getType() != Material.RAW_COPPER) return;
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (!item.getItemMeta().getPersistentDataContainer().has(RacingItem.ITEM_KEY, PersistentDataType.STRING)) return;
         e.setCancelled(true);

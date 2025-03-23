@@ -16,10 +16,10 @@ import me.datatags.racingitems.SoundPair;
 
 public class BlooperItem extends RacingItem {
     private final SoundPair hitSound = new SoundPair(Sound.ENTITY_SQUID_SQUIRT, 2);
-    private final ItemStack pumpkin = new ItemStack(Material.PUMPKIN);
+    private final ItemStack pumpkin = new ItemStack(Material.CARVED_PUMPKIN);
 
-    public BlooperItem() {
-        super("blooper", 1, "Blooper", 0.6f, 1f, 2);
+    public BlooperItem(ItemStack item) {
+        super("blooper", item, "Blooper", 0.6f, 1f, 2);
     }
 
     @Override
@@ -33,6 +33,7 @@ public class BlooperItem extends RacingItem {
 
     @Override
     public void applyTo(LivingEntity target, Player player) {
+        hitSound.playTo(player);
         player.getEquipment().setHelmet(pumpkin);
         new BukkitRunnable() {
             @Override

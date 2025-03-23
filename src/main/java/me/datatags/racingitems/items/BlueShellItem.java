@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -24,9 +25,9 @@ import me.datatags.racingitems.RacingUtils;
 import me.datatags.racingitems.SoundPair;
 
 public class BlueShellItem extends RacingItem implements Listener {
-	private Set<LivingEntity> blueShelled = new HashSet<>();
-	public BlueShellItem() {
-		super("blue_shell", 2, "Blue Shell", 0.25f, 0.75f, 3);
+	private final Set<LivingEntity> blueShelled = new HashSet<>();
+	public BlueShellItem(ItemStack item) {
+		super("blue_shell", item, "Blue Shell", 0.25f, 0.75f, 3);
 		Bukkit.getPluginManager().registerEvents(this, RacingItems.getInstance());
 	}
 
@@ -34,7 +35,7 @@ public class BlueShellItem extends RacingItem implements Listener {
 	public void applyTo(LivingEntity e, Player player) {
 	    List<RacePlayerSession> sessions = RacingUtils.getSessions(player);
 	    // when player is outside a race
-	    if (sessions.size() == 0) return;
+	    if (sessions.isEmpty()) return;
 		Player first = RacingUtils.getSessions(player).get(0).getPlayer();
 		LivingEntity firstMount = first;
 		if (firstMount.getVehicle() instanceof LivingEntity mount) {
@@ -43,8 +44,8 @@ public class BlueShellItem extends RacingItem implements Listener {
 		blueShelled.add(firstMount);
 		firstMount.teleport(firstMount.getLocation().add(0, 10, 0));
 		firstMount.setVelocity(new Vector(0, 3, 0));
-		firstMount.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 3));
-		first.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 0));
+		firstMount.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 60, 3));
+		first.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 0));
 	}
 
 	@EventHandler(priority = EventPriority.LOW)

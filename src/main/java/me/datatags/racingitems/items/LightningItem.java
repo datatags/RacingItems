@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,8 +20,8 @@ import me.datatags.racingitems.SoundPair;
 
 public class LightningItem extends RacingItem {
 
-    public LightningItem() {
-        super("lightning", 4, "Lightning", 0.8f, 1, 3);
+    public LightningItem(ItemStack item) {
+        super("lightning", item, "Lightning", 0.8f, 1, 3);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class LightningItem extends RacingItem {
                 new BabyHorseTimer(targetPlayer).runTaskLater(RacingItems.getInstance(), effectTicks);
             }
             targetPlayer.getWorld().spigot().strikeLightning(targetPlayer.getLocation(), false);
-            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, effectTicks, 3));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, effectTicks, 3));
             effectTicks += 20;
         }
     }
@@ -48,8 +49,8 @@ public class LightningItem extends RacingItem {
         return new SoundPair(Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 2);
     }
 
-    private class BabyHorseTimer extends BukkitRunnable {
-        private Player player;
+    private static class BabyHorseTimer extends BukkitRunnable {
+        private final Player player;
         public BabyHorseTimer(Player player) {
             this.player = player;
             ((Ageable)player.getVehicle()).setBaby();

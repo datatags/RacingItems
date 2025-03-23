@@ -12,15 +12,16 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
 import me.datatags.racingitems.RacingItems;
+import org.bukkit.inventory.ItemStack;
 
 public class BananaItem extends ThrowableItem {
-	private static Set<BlockReverter> tasks = new HashSet<>();
-	private int size;
-	public BananaItem(String name, int model, String displayName, float minPos, float maxPos, int weight, int size) {
-		super(name, model, displayName, minPos, maxPos, weight);
+	private static final Set<BlockReverter> tasks = new HashSet<>();
+	private final int size;
+	public BananaItem(String name, ItemStack item, String displayName, float minPos, float maxPos, int weight, int size) {
+		super(name, item, displayName, minPos, maxPos, weight);
 		this.size = size;
 	}
-	
+
 	@Override
 	public void onLand(Location loc) {
 		int radius = size - 1;

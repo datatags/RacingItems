@@ -22,16 +22,15 @@ public abstract class RacingItem {
 	private final float maxPos;
 	private final int weight;
 	protected final ItemStack item;
-	public RacingItem(String name, int model, String displayName, float minPos, float maxPos, int weight) {
+	public RacingItem(String name, ItemStack item, String displayName, float minPos, float maxPos, int weight) {
 		this.name = name;
 		this.displayName = displayName;
 		this.minPos = minPos;
 		this.maxPos = maxPos;
 		this.weight = weight;
-		item = new ItemStack(Material.RAW_COPPER);
+		this.item = item;
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.RESET + displayName);
-		meta.setCustomModelData(5050000 + model * 100);
 		meta.getPersistentDataContainer().set(ITEM_KEY, PersistentDataType.STRING, name);
 		item.setItemMeta(meta);
 	}

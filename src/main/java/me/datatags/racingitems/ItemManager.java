@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.datatags.racingitems.items.BananaBunchItem;
@@ -21,23 +22,25 @@ import me.datatags.racingitems.items.RacingItem;
 import me.datatags.racingitems.items.SlownessLingeringMushroomItem;
 import me.datatags.racingitems.items.SlownessSplashMushroomItem;
 import me.datatags.racingitems.items.SpeedShakeItem;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemManager {
-	private Map<String,RacingItem> items = new HashMap<>();
-	private Random random = new Random();
+	private final Map<String,RacingItem> items = new HashMap<>();
+	private final Random random = new Random();
 	public ItemManager() {
-		registerItem(new DamageLingeringMushroomItem());
-		registerItem(new SlownessLingeringMushroomItem());
-		registerItem(new PoisonSplashMushroomItem());
-		registerItem(new SlownessSplashMushroomItem());
-		registerItem(new BulletBillItem());
-		registerItem(new SpeedShakeItem());
-		registerItem(new BlooperItem());
-		registerItem(new BananaBunchItem());
-		registerItem(new BigBananaBunchItem());
-		registerItem(new BlueShellItem());
-		registerItem(new LightningItem());
-		registerItem(new BooItem());
+		registerItem(new DamageLingeringMushroomItem(custom(Material.SKULL_BANNER_PATTERN)));
+		registerItem(new SlownessLingeringMushroomItem(custom(Material.GUSTER_BANNER_PATTERN)));
+		registerItem(new PoisonSplashMushroomItem(custom(Material.HEARTBREAK_POTTERY_SHERD)));
+		registerItem(new SlownessSplashMushroomItem(custom(Material.FLOW_POTTERY_SHERD)));
+		registerItem(new BulletBillItem(custom(Material.MINECART)));
+		registerItem(new SpeedShakeItem(custom(Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE)));
+		registerItem(new BlooperItem(custom(Material.INK_SAC)));
+		registerItem(new BananaBunchItem(custom(Material.TALL_GRASS)));
+		registerItem(new BigBananaBunchItem(custom(Material.FERN)));
+		registerItem(new BlueShellItem(custom(Material.SHULKER_SHELL)));
+		registerItem(new LightningItem(custom(Material.BLAZE_ROD)));
+		registerItem(new BooItem(custom(Material.OMINOUS_BOTTLE)));
 	}
 
 	public void registerItem(RacingItem item) {
@@ -72,5 +75,13 @@ public class ItemManager {
 			}
 		}
 		RacingItems.getInstance().getLogger().warning("Failed to find matching item :?");
+	}
+
+	private static ItemStack custom(Material mat) {
+		ItemStack item = new ItemStack(mat);
+		ItemMeta meta = item.getItemMeta();
+		meta.setCustomModelData(64);
+		item.setItemMeta(meta);
+		return item;
 	}
 }

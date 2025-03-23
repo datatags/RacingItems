@@ -5,19 +5,20 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 public class SplashMushroomItem extends ThrowableItem {
-	private PotionEffect effect;
-	private boolean applyToMount;
-	public SplashMushroomItem(String name, int model, String displayName, float minPos, float maxPos, int weight,
-	PotionEffect effect) {
-		this(name, model, displayName, minPos, maxPos, weight, effect, true);
+	private final PotionEffect effect;
+	private final boolean applyToMount;
+	public SplashMushroomItem(String name, ItemStack item, String displayName, float minPos, float maxPos, int weight,
+							  PotionEffect effect) {
+		this(name, item, displayName, minPos, maxPos, weight, effect, true);
 	}
 
-	public SplashMushroomItem(String name, int model, String displayName, float minPos, float maxPos, int weight,
+	public SplashMushroomItem(String name, ItemStack item, String displayName, float minPos, float maxPos, int weight,
 			PotionEffect effect, boolean applyToMount) {
-		super(name, model, displayName, minPos, maxPos, weight);
+		super(name, item, displayName, minPos, maxPos, weight);
 		this.effect = effect;
 		this.applyToMount = applyToMount;
 	}

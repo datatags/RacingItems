@@ -2,6 +2,7 @@ package me.datatags.racingitems.items;
 
 import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -10,8 +11,8 @@ import me.datatags.racingitems.RacingItems;
 import me.datatags.racingitems.SoundPair;
 
 public class BulletBillItem extends PotionEffectItem {
-	public BulletBillItem() {
-		super("bullet_bill", 3, "Bullet Bill", 1, 1, 4, new PotionEffect(PotionEffectType.SPEED, 60, 9));
+	public BulletBillItem(ItemStack item) {
+		super("bullet_bill", item, "Bullet Bill", 1, 1, 4, new PotionEffect(PotionEffectType.SPEED, 60, 9));
 	}
 
 	@Override
